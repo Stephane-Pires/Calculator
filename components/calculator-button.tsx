@@ -71,8 +71,9 @@ export function CalculatorButton({
             onClick={onClick}
             value={value}
             transform={active ? 'scale(0.85)' : null}
+            fontSize="xl"
         >
-            <Text fontSize="xl">{icon}</Text>
+            {icon}
         </Button>
     )
 }

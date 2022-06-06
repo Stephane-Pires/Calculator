@@ -26,7 +26,6 @@ const ACTION = {
 // Handle the calculator STATE
 // Remember a reducer must be PURE ;)
 function reducer(state, action) {
-    console.log('action', action)
     switch (action.type) {
         case ACTION.ADD:
             return {
@@ -79,16 +78,17 @@ function Calculator() {
     )
 
     // Handle a CLICK in a "CalculatorButton"
-    const handleClick = useCallback(({ target: { value } }) => {
-        console.log('Click on Button', value)
-        if (KEYS.RESET === value) return dispatch({ type: ACTION.RESET })
+    const handleClick = useCallback((event) => {
+        if (KEYS.RESET === event.target.value)
+            return dispatch({ type: ACTION.RESET })
 
-        if (KEYS.EGAL === value) return dispatch({ type: ACTION.COMPUTE })
+        if (KEYS.EGAL === event.target.value)
+            return dispatch({ type: ACTION.COMPUTE })
 
-        if (OPERATIONS_KEYS_VALUES.includes(value))
+        if (OPERATIONS_KEYS_VALUES.includes(event.target.value))
             dispatch({
                 type: ACTION.ADD,
-                payload: value,
+                payload: event.target.value,
             })
     }, [])
 

@@ -35,7 +35,6 @@ yarn dev
 
 ### Known bugs :
 
--   A click is not always handled, and could be missed. Investigate on handler, "onClick", "useCallback" etc..
 -   A reset of history could break the history
 -   First pressed on EGAL/ENTER give "undefined"
 -   FOCUS get the foregoing on ERROR in the SCREEN (unable to see the field in ERROR, while focusing IT)

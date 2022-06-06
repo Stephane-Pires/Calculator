@@ -32,7 +32,7 @@ export function CalculatorHistory() {
             >
                 {buildedList}
             </VStack>
-            <Button onClick={handleOnClick}>Reset</Button>
+            <Button onClick={handleOnClick}>Reset history</Button>
         </VStack>
     )
 }
