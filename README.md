@@ -1,6 +1,6 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Calculator Project
 
-## Getting Started
+### Getting Started
 
 First, run the development server:
 
@@ -10,25 +10,39 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Stack :
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+-   NextJS, ChakraUI, React, Prettier, TrivagoSortImport
+-   NextJS : Used "only" to start an "Typescript-App" with "Fast-Reloading" & "Routing"
+-   React : Use as a Frontend Tool
+-   ChakraUI : Used as a Component Library Toolbox (also handle the Theme)
+-   Prettier : Because you can't work without it
+-   TrivagoSortImport : Because i have been traumatised with "Import sort order" at AnalogWay
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Features :
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+-   Calculate an operation or a list of operations.
+-   Handle click inside the client UI or on the Keyboard
+-   History of operation
+-   "Handle" Errors
+-   "Light" & "Dark Mode" 🌓
 
-## Learn More
+### Improvement Zone :
 
-To learn more about Next.js, take a look at the following resources:
+-   Puppet Typescript, the typing is clearly anemic
+-   History UI
+-   Use LocalStorage for History UI
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Known bugs :
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+-   A click is not always handled, and could be missed. Investigate on handler, "onClick", "useCallback" etc..
+-   A reset of history could break the history
+-   First pressed on EGAL/ENTER give "undefined"
+-   FOCUS get the foregoing on ERROR in the SCREEN (unable to see the field in ERROR, while focusing IT)
 
-## Deploy on Vercel
+### Future Features :
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+-   Languages (Japaneses, Chineses, Arabic, "Russian")
+-   Handle the ability to copy-past ?
+-   Add more buttons for complexe operation ?
+-   Test the code (Component, Logic)
