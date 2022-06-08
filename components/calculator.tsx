@@ -4,7 +4,9 @@ import { useCallback, useContext, useEffect, useReducer } from 'react'
 
 import { BUTTON_DESCRIPTOR, getKeyInfoFromValue } from '@utils/calculator'
 
-import { Grid, GridItem, Input, useColorModeValue } from '@chakra-ui/react'
+import { Grid, GridItem, Input, useStyleConfig } from '@chakra-ui/react'
+import type { ComponentStyleConfig } from '@chakra-ui/theme'
+import { mode } from '@chakra-ui/theme-tools'
 
 import {
     ACTION_KEYS_VALUES,
@@ -72,11 +74,6 @@ function Calculator() {
 
     const { setHistory } = useContext(CalculatorContext)
 
-    const calculator_color_mode = useColorModeValue(
-        'calculator_light',
-        'calculator_dark'
-    )
-
     // Handle a CLICK in a "CalculatorButton"
     const handleClick = useCallback((event) => {
         if (KEYS.RESET === event.target.value)
@@ -119,30 +116,11 @@ function Calculator() {
         }
     }, [])
 
+    const styles = useStyleConfig('CalculatorStyle')
+
     return (
-        <Grid
-            h="700px"
-            w="500px"
-            gridTemplateAreas={`'SCREEN SCREEN SCREEN SCREEN' 'SCREEN SCREEN SCREEN SCREEN' 'PLUS MINUS MULTIPLY DIVIDE' 'SEVEN HEIGHT NINE .' 'FOUR FIVE SIX RESET' 'ONE TWO THREE EGAL' 'ZERO ZERO POINT EGAL'`}
-            templateRows={{
-                base: 'repeat(7, 1fr)',
-            }}
-            templateColumns={{
-                base: 'repeat(4, 1fr)',
-            }}
-            bg={`${calculator_color_mode}.background`}
-            rounded="md"
-            boxShadow="md"
-            p={5}
-            border="3px"
-            borderStyle="ridge"
-            borderColor={`${calculator_color_mode}.border`}
-        >
-            <GridItem
-                margin={1}
-                bg={`${calculator_color_mode}.screen`}
-                area="SCREEN"
-            >
+        <Grid __css={styles}>
+            <GridItem margin={1} bg="screen" area="SCREEN">
                 <Input
                     isReadOnly={true}
                     isInvalid={error}
@@ -162,40 +140,46 @@ function Calculator() {
 }
 
 function BuildGridItem({ handleClick }) {
-    const calculator_color_mode = useColorModeValue(
-        'calculator_light',
-        'calculator_dark'
-    )
-
     return (
         <>
             {BUTTON_DESCRIPTOR.map((array) =>
                 array.map((keyValue) => {
-                    //TODO : Find a better way to handle thoses CSSproperties
-                    const { icon, bg, area, color } =
+                    const { icon, area, variant } =
                         getKeyInfoFromValue(keyValue)
 
                     return (
-                        <GridItem
-                            margin={1}
-                            area={area}
+                        <CalculatorButton
                             key={getIDKeyFromValue(keyValue)}
-                        >
-                            <CalculatorButton
-                                key={getIDKeyFromValue(keyValue)}
-                                id={getIDKeyFromValue(keyValue)}
-                                onClick={handleClick}
-                                icon={icon}
-                                value={keyValue}
-                                bg={`${calculator_color_mode}.${bg}`}
-                                color={`${calculator_color_mode}.${color}`}
-                            />
-                        </GridItem>
+                            id={getIDKeyFromValue(keyValue)}
+                            onClick={handleClick}
+                            icon={icon}
+                            value={keyValue}
+                            area={area}
+                            variant={variant}
+                        />
                     )
                 })
             )}
         </>
     )
+}
+
+export const CalculatorStyle: ComponentStyleConfig = {
+    baseStyle: (props) => ({
+        display: 'grid',
+        h: '700px',
+        w: '500px',
+        gridTemplateAreas: `'SCREEN SCREEN SCREEN SCREEN' 'SCREEN SCREEN SCREEN SCREEN' 'PLUS MINUS MULTIPLY DIVIDE' 'SEVEN HEIGHT NINE .' 'FOUR FIVE SIX RESET' 'ONE TWO THREE EGAL' 'ZERO ZERO POINT EGAL'`,
+        gridAutoColumns: '1fr',
+        gridAutoRows: '1fr',
+        backgroundColor: mode('#ffe8d6', '#b7b7a4')(props),
+        rounded: 'md',
+        boxShadow: 'md',
+        p: 5,
+        border: '3px',
+        borderStyle: 'ridge',
+        borderColor: mode('#000000', '#b7b7a4')(props),
+    }),
 }
 
 export default Calculator

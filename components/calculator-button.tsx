@@ -1,32 +1,34 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { Button, Text, useColorModeValue } from '@chakra-ui/react'
+import {
+    Button,
+    ComponentStyleConfig,
+    GridItem,
+    useColorModeValue,
+    useStyleConfig,
+} from '@chakra-ui/react'
+import { mode } from '@chakra-ui/theme-tools'
 
 import { KEYS } from '../utils/key'
 
 interface Props {
     icon: string
-    bg: string
     onClick: any
     value: string
     id: string
-    color: string
+    area: string
+    variant: string
 }
 
 export function CalculatorButton({
     icon,
-    bg,
     onClick,
     value,
     id,
-    color,
+    area,
+    variant,
 }: Props) {
     const buttonRef = useRef(null)
-
-    const calculator_color_mode = useColorModeValue(
-        'calculator_light',
-        'calculator_dark'
-    )
 
     const [active, setActive] = useState(false)
 
@@ -54,26 +56,51 @@ export function CalculatorButton({
         }
     }, [value, id])
 
+    const styles = useStyleConfig('CalculatorButtonStyle', { variant })
+
+    const activeBg = useColorModeValue('#b4b6ba', '#7D8391')
+
     return (
-        <Button
-            className="active"
-            ref={buttonRef}
-            w="100%"
-            h="100%"
-            bg={active ? `${calculator_color_mode}.active` : bg}
-            color={color}
-            boxShadow="md"
-            _hover={{ bg: `${calculator_color_mode}.hover` }}
-            _active={{
-                bg: `${calculator_color_mode}.active`,
-                transform: 'scale(0.85)',
-            }}
-            onClick={onClick}
-            value={value}
-            transform={active ? 'scale(0.85)' : null}
-            fontSize="xl"
-        >
-            {icon}
-        </Button>
+        <GridItem margin={1} area={area} key={id}>
+            <Button
+                __css={styles}
+                ref={buttonRef}
+                sx={
+                    active && {
+                        bg: activeBg,
+                        transform: 'scale(0.85)',
+                    }
+                }
+                onClick={onClick}
+                value={value}
+            >
+                {icon}
+            </Button>
+        </GridItem>
     )
+}
+
+export const CalculatorButtonStyle: ComponentStyleConfig = {
+    baseStyle: (props) => ({
+        w: '100%',
+        h: '100%',
+        boxShadow: 'md',
+        borderColor: mode('#000000', '#b7b7a4')(props),
+        _hover: { bg: mode('#b4b6ba', '#7D8391')(props) },
+        _active: {
+            bg: mode('#b4b6ba', '#7D8391')(props),
+            transform: 'scale(0.85)',
+        },
+        fontSize: 'xl',
+    }),
+    variants: {
+        operation: (props) => ({
+            color: mode('#000000', '#000000')(props),
+            backgroundColor: mode('#fca311', '#e5e5e5')(props),
+        }),
+        number: (props) => ({
+            color: mode('#000000', '#ffffff')(props),
+            backgroundColor: mode('#e5e5e5', '#14213d')(props),
+        }),
+    },
 }
