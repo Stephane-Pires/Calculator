@@ -54,35 +54,6 @@ export function getIconFromKeyValue(value) {
     }
 }
 
-export function getBgFromKeyValue(value) {
-    if (!KEYS_VALUES.includes(value))
-        throw Error(`The key: ${value}, doesn't belong to KEYS`)
-
-    switch (value) {
-        case KEYS.ONE:
-        case KEYS.TWO:
-        case KEYS.THREE:
-        case KEYS.FOUR:
-        case KEYS.FIVE:
-        case KEYS.SIX:
-        case KEYS.SEVEN:
-        case KEYS.HEIGHT:
-        case KEYS.NINE:
-        case KEYS.ZERO:
-        case KEYS.POINT:
-            return 'button.number.background'
-        case KEYS.DIVIDE:
-        case KEYS.MULTIPLY:
-        case KEYS.PLUS:
-        case KEYS.MINUS:
-        case KEYS.EGAL:
-        case KEYS.RESET:
-            return 'button.operation.background'
-        default:
-            break
-    }
-}
-
 export function getAreaFromKeyValue(value) {
     if (!KEYS_VALUES.includes(value))
         throw Error(`The key: ${value}, doesn't belong to KEYS`)
@@ -111,7 +82,7 @@ export function getAreaFromKeyValue(value) {
     }
 }
 
-export function getColorFromKeyValue(value) {
+export function getVariantFromValue(value) {
     if (!KEYS_VALUES.includes(value))
         throw Error(`The key: ${value}, doesn't belong to KEYS`)
 
@@ -127,14 +98,14 @@ export function getColorFromKeyValue(value) {
         case KEYS.NINE:
         case KEYS.ZERO:
         case KEYS.POINT:
-            return 'button.number.color'
+            return 'number'
         case KEYS.DIVIDE:
         case KEYS.MULTIPLY:
         case KEYS.PLUS:
         case KEYS.MINUS:
         case KEYS.EGAL:
         case KEYS.RESET:
-            return 'button.operation.color'
+            return 'operation'
         default:
             break
     }
@@ -143,8 +114,7 @@ export function getColorFromKeyValue(value) {
 export function getKeyInfoFromValue(value) {
     return {
         icon: getIconFromKeyValue(value),
-        bg: getBgFromKeyValue(value),
         area: getAreaFromKeyValue(value),
-        color: getColorFromKeyValue(value),
+        variant: getVariantFromValue(value),
     }
 }
